@@ -16,7 +16,15 @@ def all_houses(filename):
     """
 
     houses = set()
-
+    the_file = open("cohort_data.txt")
+    for line in the_file:
+        words = line.split("|")
+        if words[2] == '':
+          continue
+        else:
+          houses.add(words[2])
+        
+    the_file.close()
     # TODO: replace this with your code
 
     return houses
@@ -53,6 +61,22 @@ def students_by_cohort(filename, cohort="All"):
     students = []
 
     # TODO: replace this with your code
+    the_file = open("cohort_data.txt")
+
+    for line in the_file:
+      line = line.rstrip()
+      words = line.split('|')
+      
+      if cohort == "All":
+        if words[4] != 'I' and words[4] != 'G':
+          # print(words[4])
+          name = words[0] + ' ' + words[1]
+          students.append(name)
+      #print((words[4])
+      elif words[4] == cohort:
+        name = words[0] + ' ' + words[1]
+        students.append(name)
+      
 
     return sorted(students)
 
@@ -97,8 +121,35 @@ def all_names_by_house(filename):
     instructors = []
 
     # TODO: replace this with your code
+    the_file = open("cohort_data.txt")
 
-    return []
+    for line in the_file:
+      line = line.rstrip()
+      words = line.split('|')
+      if words[2] == "Dumbledore's Army":
+        name = words[0] + ' ' + words[1]
+        dumbledores_army.append(name)
+      
+      elif words[2] == "Gryffindor":
+        name = words[0] + ' ' + words[1]
+        gryffindor.append(name)
+      elif words[2] == "Hufflepuff":
+        name = words[0] + ' ' + words[1]
+        hufflepuff.append(name)
+      elif words[2] == "Ravenclaw":
+        name = words[0] + ' ' + words[1]
+        ravenclaw.append(name)
+      elif words[2] == "Slytherin":
+        name = words[0] + ' ' + words[1]
+        slytherin.append(name)
+      elif words[4] == "G":
+        name = words[0] + ' ' + words[1]
+        ghosts.append(name)
+      elif words[4] == "I":
+        name = words[0] + ' ' + words[1]
+        instructors.append(name)    
+       
+    return [sorted(dumbledores_army), sorted(gryffindor), sorted(hufflepuff), sorted(ravenclaw), sorted(ghosts), sorted(instructors)]
 
 
 def all_data(filename):
