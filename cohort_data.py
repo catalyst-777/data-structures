@@ -77,7 +77,7 @@ def students_by_cohort(filename, cohort="All"):
         name = words[0] + ' ' + words[1]
         students.append(name)
       
-
+    the_file.close()
     return sorted(students)
 
 
@@ -148,8 +148,8 @@ def all_names_by_house(filename):
       elif words[4] == "I":
         name = words[0] + ' ' + words[1]
         instructors.append(name)    
-       
-    return [sorted(dumbledores_army), sorted(gryffindor), sorted(hufflepuff), sorted(ravenclaw), sorted(ghosts), sorted(instructors)]
+    the_file.close()  
+    return [sorted(dumbledores_army), sorted(gryffindor), sorted(hufflepuff), sorted(ravenclaw), sorted(slytherin), sorted(ghosts), sorted(instructors)]
 
 
 def all_data(filename):
@@ -175,6 +175,20 @@ def all_data(filename):
 
     # TODO: replace this with your code
 
+    the_file = open("cohort_data.txt")
+
+    for line in the_file:
+      line = line.rstrip()
+      words = line.split('|')
+
+      name = words[0] + ' ' + words[1]
+      house = words[2]
+      advisor = words[3]
+      cohort = words[4]
+
+      person = (name, house, advisor, cohort)
+      all_data.append(person)
+    the_file.close()
     return all_data
 
 
@@ -200,6 +214,19 @@ def get_cohort_for(filename, name):
     """
 
     # TODO: replace this with your code
+    the_file = open("cohort_data.txt")
+
+    for line in the_file:
+      line = line.rstrip()
+      words = line.split('|')
+      
+      full_name = words[0] + ' ' + words[1]
+      # print(full_name)
+      if full_name == name:
+        # print(line)
+        return words[4]
+  
+    the_file.close()
 
 
 def find_duped_last_names(filename):
@@ -217,6 +244,24 @@ def find_duped_last_names(filename):
     """
 
     # TODO: replace this with your code
+
+    the_file = open("cohort_data.txt")
+    last_name_list = []
+    dupe_list = []
+    for line in the_file:
+      line = line.rstrip()
+      words = line.split('|')
+
+      last_name = words[1]
+      
+
+      if last_name in last_name_list:
+        dupe_list.append(last_name)
+      
+      last_name_list.append(last_name)
+
+    return set(dupe_list)
+    
 
 
 def get_housemates_for(filename, name):
